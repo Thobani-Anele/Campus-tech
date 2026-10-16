@@ -4,9 +4,11 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Menu, X, ShoppingCart, Search } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useCart, cartItemCount } from '@/lib/cart'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const cartCount = cartItemCount(useCart())
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -49,7 +51,7 @@ export default function Navbar() {
             <Link href="/cart" className="relative p-2 hover:bg-ct-accent-blue/20 rounded-lg transition-colors">
               <ShoppingCart className="w-5 h-5 text-ct-accent-blue" />
               <span className="absolute -top-2 -right-2 bg-ct-accent-violet text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
+                {cartCount}
               </span>
             </Link>
 
