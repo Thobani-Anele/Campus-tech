@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ShoppingCart, Zap, Truck, Shield, Star } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import { addToCart } from '@/lib/cart'
 import type { Product, Category } from '@/types'
 
 export default function Home() {
@@ -155,7 +156,11 @@ export default function Home() {
                       <p className="text-gray-400 text-sm mb-4 flex-grow line-clamp-2">{product.description}</p>
                       <div className="flex items-center justify-between">
                         <span className="text-ct-accent-cyan font-bold">R{product.price}</span>
-                        <button className="p-2 bg-ct-accent-blue/20 hover:bg-ct-accent-blue/40 rounded-lg transition-colors">
+                        <button
+                          onClick={(e) => { e.preventDefault(); addToCart(product) }}
+                          className="p-2 bg-ct-accent-blue/20 hover:bg-ct-accent-blue/40 rounded-lg transition-colors"
+                          aria-label={`Add ${product.name} to cart`}
+                        >
                           <ShoppingCart className="w-4 h-4 text-ct-accent-blue" />
                         </button>
                       </div>

@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Filter, ShoppingCart, ChevronDown } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import { addToCart } from '@/lib/cart'
 import type { Product, Category } from '@/types'
 
 export default function Shop() {
@@ -205,7 +206,11 @@ export default function Shop() {
                               <span className="ml-2 text-sm text-gray-400 line-through">R{product.original_price}</span>
                             )}
                           </div>
-                          <button className="p-2 bg-ct-accent-blue/20 hover:bg-ct-accent-blue/40 rounded-lg transition-colors">
+                          <button
+                            onClick={(e) => { e.preventDefault(); addToCart(product) }}
+                            className="p-2 bg-ct-accent-blue/20 hover:bg-ct-accent-blue/40 rounded-lg transition-colors"
+                            aria-label={`Add ${product.name} to cart`}
+                          >
                             <ShoppingCart className="w-4 h-4 text-ct-accent-blue" />
                           </button>
                         </div>
