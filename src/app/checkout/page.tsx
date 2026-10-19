@@ -7,6 +7,9 @@ import { MessageCircle, ShoppingCart, CheckCircle } from 'lucide-react'
 import { useCart, cartSubtotal, clearCart, DELIVERY_FEE } from '@/lib/cart'
 
 const WHATSAPP_NUMBER = '27684472974'
+const PAYSHAP_NUMBER = '075 164 5853'
+const PAYSHAP_NAME = 'CAMPUS TECH'
+const PAYSHAP_BANK = 'FNB'
 
 export default function Checkout() {
   const items = useCart()
@@ -25,9 +28,9 @@ export default function Checkout() {
   const canSubmit = name.trim() !== '' && phone.trim() !== '' && (deliveryMethod === 'pickup' || address.trim() !== '')
 
   const placeOrder = () => {
-    const lines = items.map(i => `• ${i.quantity}× ${i.name} — R${i.price * i.quantity}`).join('\n')
+    const lines = items.map(i => `\u2022 ${i.quantity}\u00d7 ${i.name} \u2014 R${i.price * i.quantity}`).join('\n')
     const message = [
-      '🛒 *New Campus Tech order*',
+      '\ud83d\uded2 *New Campus Tech order*',
       '',
       `*Name:* ${name}`,
       `*Phone:* ${phone}`,
@@ -40,7 +43,7 @@ export default function Checkout() {
       `Delivery: ${deliveryFee > 0 ? `R${deliveryFee}` : 'Free (campus pickup)'}`,
       `*Total: R${total}*`,
       '',
-      'Payment: cash on delivery / EFT — details to be confirmed on WhatsApp.',
+      `*Payment:* PayShap ${PAYSHAP_NUMBER} (${PAYSHAP_NAME}, ${PAYSHAP_BANK}) or cash on ${deliveryMethod === 'pickup' ? 'pickup' : 'delivery'}.`,
       notes.trim() ? `\n*Notes:* ${notes}` : '',
     ].filter(Boolean).join('\n')
 
@@ -59,11 +62,23 @@ export default function Checkout() {
             <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-6" />
             <h1 className="heading-lg gradient-text mb-4">Order Sent!</h1>
             <p className="text-gray-300 mb-2">
-              Your order was opened in WhatsApp — just press send to confirm it with us.
+              Your order was opened in WhatsApp \u2014 just press send to confirm it with us.
             </p>
-            <p className="text-gray-400 text-sm mb-8">
-              We&apos;ll confirm availability and arrange payment (cash on delivery or EFT) right there in the chat.
+            <p className="text-gray-400 text-sm mb-6">
+              We&apos;ll confirm availability right there in the chat.
             </p>
+            <div className="bg-ct-card-bg border border-ct-accent-blue/30 rounded-lg p-6 mb-8 text-left">
+              <h2 className="font-bold text-ct-accent-blue mb-3">How to pay</h2>
+              <div className="space-y-2 text-sm text-gray-300">
+                <p><span className="text-gray-400">PayShap:</span> <span className="font-semibold text-white">{PAYSHAP_NUMBER}</span></p>
+                <p><span className="text-gray-400">Account name:</span> <span className="font-semibold text-white">{PAYSHAP_NAME}</span></p>
+                <p><span className="text-gray-400">Bank:</span> <span className="font-semibold text-white">{PAYSHAP_BANK}</span></p>
+                <p><span className="text-gray-400">Reference:</span> <span className="font-semibold text-white">Your name + order</span></p>
+              </div>
+              <p className="text-xs text-gray-500 mt-4">
+                Cash on pickup/delivery also available. Send your payment proof on WhatsApp and we&apos;ll get your order ready.
+              </p>
+            </div>
             <Link href="/shop" className="btn-primary">
               Continue Shopping
             </Link>
@@ -134,7 +149,7 @@ export default function Checkout() {
                     }`}
                   >
                     <p className="font-semibold">Campus pickup</p>
-                    <p className="text-sm text-gray-400">Free — we&apos;ll arrange a pickup point on WhatsApp</p>
+                    <p className="text-sm text-gray-400">Free \u2014 we&apos;ll arrange a pickup point on WhatsApp</p>
                   </button>
                   <button
                     type="button"
@@ -146,7 +161,7 @@ export default function Checkout() {
                     }`}
                   >
                     <p className="font-semibold">Delivery in Bloemfontein</p>
-                    <p className="text-sm text-gray-400">R{DELIVERY_FEE} — same-day where possible</p>
+                    <p className="text-sm text-gray-400">R{DELIVERY_FEE} \u2014 same-day where possible</p>
                   </button>
                 </div>
               </div>
@@ -176,7 +191,7 @@ export default function Checkout() {
               </div>
 
               <p className="text-sm text-gray-400">
-                Payment is finalised on WhatsApp — cash on delivery or EFT. No card details needed here.
+                Pay with PayShap ({PAYSHAP_NUMBER}) after ordering, or cash on pickup/delivery. No card details needed here.
               </p>
             </div>
 
@@ -186,7 +201,7 @@ export default function Checkout() {
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {items.map(i => (
                   <div key={i.id} className="flex justify-between text-sm text-gray-300 gap-4">
-                    <span className="line-clamp-1">{i.quantity}× {i.name}</span>
+                    <span className="line-clamp-1">{i.quantity}\u00d7 {i.name}</span>
                     <span className="flex-shrink-0">R{i.price * i.quantity}</span>
                   </div>
                 ))}
@@ -214,7 +229,7 @@ export default function Checkout() {
                 Place Order via WhatsApp
               </button>
               <p className="text-xs text-gray-500 text-center">
-                Opens WhatsApp with your order pre-filled — just press send.
+                Opens WhatsApp with your order pre-filled \u2014 just press send.
               </p>
             </div>
           </div>
