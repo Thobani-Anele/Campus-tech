@@ -13,7 +13,7 @@ export default function Shop() {
   const [products, setProducts] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState('')
-  const [priceRange, setPriceRange] = useState([0, 5000])
+  const [priceRange, setPriceRange] = useState([0, 30000])
   const [sortBy, setSortBy] = useState('newest')
   const [loading, setLoading] = useState(true)
 
@@ -116,7 +116,7 @@ export default function Shop() {
                   <input
                     type="range"
                     min="0"
-                    max="5000"
+                    max="30000"
                     value={priceRange[0]}
                     onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
                     className="w-full"
@@ -124,7 +124,7 @@ export default function Shop() {
                   <input
                     type="range"
                     min="0"
-                    max="5000"
+                    max="30000"
                     value={priceRange[1]}
                     onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
                     className="w-full"
@@ -169,7 +169,7 @@ export default function Shop() {
                 <button
                   onClick={() => {
                     setSelectedCategory('')
-                    setPriceRange([0, 5000])
+                    setPriceRange([0, 30000])
                   }}
                   className="btn-primary"
                 >
